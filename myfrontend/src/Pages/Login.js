@@ -1,17 +1,12 @@
-import React, { Component } from 'react';
+import React, { useState  } from 'react';
 import axios from "axios"
 import {useHistory} from "react-router-dom";
 
-const Login = () => {
+const Login = ({saveAuthCredentials}) => {
     const history = useHistory();
+    const [errorMessage, setErrorMessage] = useState("");
 
-    // constructor = () => {
-    //     this.state = {
-    //         loginErrorMessage: "",
-    //         authCredentials: {}
-    //     }
-    // }
-
+    //authenticate user and save authetication credentials to pass to components
     const sendLoginCredentials = (e) => {
         e.preventDefault();
         var endpointURL = "/auth?" + new URLSearchParams(new FormData(document.getElementById("LoginForm"))).toString();
@@ -19,45 +14,37 @@ const Login = () => {
         axios.post(endpointURL).then(response => {
             const data = response.data;
             if(data.status !== undefined && data.status === "error"){
-                // this.setState({
-                //    // loginErrorMessage: data.message
-                // });
+                setErrorMessage(data.message)
             } else {
-                // this.setState({
-                // //    authCredentials: data
-                // });
-                history.push('/list')
+                saveAuthCredentials({...data})
+                history.push('/List')
             }
         })
-    }
-    const getList = () => {
-        const getListAPI = "/list?"+ Object.keys(this.state.authCredentials).map(key => key + '=' + this.state.authCredentials[key]).join('&');
-        axios.get(getListAPI).then(response => {
-             console.log(response)         
-         })
     }
     
     return (
         <div className="container">
             <div className="row">
-                <div className="col-xs-12 col-sm-12 col-md-8 col-lg-6  mx-auto column col-sm-offset-0 col-md-offset-2 col-lg-offset-3">
-                    <h2 className="mb-3">Login to your Scrive account</h2>
+                <div className="col-xs-12 col-sm-12 col-md-8 col-lg-4  mx-auto column col-sm-offset-0 col-md-offset-2 col-lg-offset-3">
+                    <h1 className="mb-2">Login to your Scrive account</h1>
+                    <h4 className="brand-color mb-2">Enter your email and password.</h4>
                     <form className="form-horizontal" id="LoginForm"> 
-                        <div className="form-group mb-4">
+                        <div className="form-group mb-2">
                             <div className="col-md-12">
                                 <input id="UserEmail" name="email" type="test" placeholder="email" className="form-control input-md" />
                             </div>
                         </div>  
-                        <div className="form-group mb-4">
+                        <div className="form-group mb-2">
                             <div className="col-md-12">
                                 <input id="UserPassowrd" name="password" type="password" placeholder="password" className="form-control input-md" />
                             </div>
                         </div>
-
+                        <div className="col-md-12 mx-auto mb-2">
+                            <div className="invalid-feedback d-block">{errorMessage}</div>
+                        </div>
                         <div className="form-group">
                             <div className="col-md-12 mx-auto">
-                            {/* <div className="invalid-feedback d-block">{this.state.loginErrorMessage}</div> */}
-                                <button id="button1id" name="button1id" onClick={sendLoginCredentials} className="btn btn-primary">Login</button>
+                                <button type="submit" onClick={sendLoginCredentials} className="btn btn-primary col-sm-12">Login</button>
                             </div>
                         </div>
                     </form>

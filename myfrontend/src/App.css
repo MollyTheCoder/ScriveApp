@@ -1,6 +1,3 @@
-.App {
-  text-align: center;
-}
 
 .App-logo {
   height: 40vmin;
@@ -28,11 +25,59 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* custom styling */
+.brand-color {
+  color:#67D392;
+}
+h1 {
+  font-size: 3.5rem;
+}
+.documents-list,
+.documents-detail {
+  min-width: 430px;
+}
+.go-back a {
+  font-size: 16px;
+}
+/* overwrite bootstrap */
+.btn-primary, .btn-primary:hover, .btn-primary:focus, .btn-primary:visited {
+  background-color: #345084;
+  border-color: #345084;
+  font-weight: 400;  
+  font-size: 1.2rem;
+  padding: 6px 20px;
+}
+.btn-primary a, a   {
+  color: #fff;
+  text-decoration: none;
+}
+.invalid-feedback  {
+  color: #FF6CA1;
+  font-size: 0.8em;
+}
+.card {
+  color: #1e3f7b;
+}
+.card-header {
+  font-size: 18px;
+  font-weight: 600;
+}
+.documents-detail .card-header {
+  background-color: #acb8d2;
+}
+.card-title {
+  font-size: 18px;
+}
+.card-text {
+  font-size: 22px;
+  color: #2a3e65;
+}
+.card .btn-primary {
+  padding: 6px 20px;
+  font-size: 16px;
+}
+.card-footer {
+  font-size: 16px;
+  font-weight: 500;
+  background-color: white;
 }
